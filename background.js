@@ -18,10 +18,16 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 			}
 		}
 	}
-i});
+});
 
 var time = setInterval(function(){
+	now = new Date().getTime();
 	for(tabId in fbTabs){
-	
+		diff = now - new Date(fbTabs[tabId]);
+		if(diff > 600000){
+			chrome.tabs.remove(parseInt(tabId), function(){
+				console.log("Facebook tab closed");
+			});
+		}
 	}
 }, 2000);
