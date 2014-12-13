@@ -20,14 +20,17 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	}
 });
 
+chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
+	delete fbTabs[tabId];
+	console.log("Facebook tab["+tabId+"] closed");
+});
+
 var time = setInterval(function(){
 	now = new Date().getTime();
 	for(tabId in fbTabs){
 		diff = now - new Date(fbTabs[tabId]);
 		if(diff > 600000){
-			chrome.tabs.remove(parseInt(tabId), function(){
-				console.log("Facebook tab closed");
-			});
+			chrome.tabs.remove(parseInt(tabId));
 		}
 	}
 }, 2000);
