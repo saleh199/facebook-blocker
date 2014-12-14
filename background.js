@@ -1,7 +1,7 @@
 var fbTabs = {}, extEnabled;
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-	if(changeInfo.url){
+	if(changeInfo.url && extEnabled == true){
 		console.log(changeInfo);
 		url = changeInfo.url;
 		pattern = /https?\:\/\/(?:www\.)?facebook\.com\/\/?/;
